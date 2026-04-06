@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LostAndFound
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.5.
@@ -57,3 +58,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+=======
+# Group2
+This is the Angular week 6 Project 
+>>>>>>> b523d9162508a3730ab953fd3e2b8dd91b30327e

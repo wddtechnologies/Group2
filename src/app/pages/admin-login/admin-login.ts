@@ -41,7 +41,7 @@ export class AdminLoginComponent {
  username: string = '';
 
  // Store password input from user
- password = '';
+ password: string = '';
 
  // Store error message to invalid login
  errorMessage: string = '';

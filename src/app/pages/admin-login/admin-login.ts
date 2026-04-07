@@ -38,13 +38,13 @@ import { AuthService } from '../../core/services/auth.service';
 export class AdminLoginComponent {
 
  // Store username input from User
- username: '';
+ username = '';
 
  // Store password input from user
- password: '';
+ password = '';
 
  // Store error message to invalid login
- errorMessage: '';
+ errorMessage = '';
 
  /** 
   * Constructor
@@ -75,7 +75,7 @@ export class AdminLoginComponent {
     }
     // If login failed, show error message
     else {
-      this.errorMessage = 'Invalid username or password. Please try again.';
+      this.errorMessage = 'Invalid username or password.';
     }
   }
 }

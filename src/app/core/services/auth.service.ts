@@ -29,7 +29,7 @@ export class AuthService {
   login(username: string, password: string): boolean {
 
     // Validate credentials by camparing with stored values
-    cost is Valid = username === this.adminUsername && password === this.adminPassword;
+    const isValid = username === this.adminUsername && password === this.adminPassword;
 
     // If credentials are valid,
     if (isValid) {

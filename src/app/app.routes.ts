@@ -9,8 +9,6 @@ import { AdminLoginComponent } from './pages/admin-login/admin-login';
 // Import auth guard to protect admin routes
 import { authGuard } from './core/guards/auth.guard';
 
-import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard';
-import { HomeComponent } from './pages/home/home';
 
 /**
  * Application routes configuration
@@ -21,7 +19,7 @@ export const routes: Routes = [
  // default route
  { 
   path: '',
-  component: HomeComponent
+  
  },
 
  // Route for admin login page
@@ -33,7 +31,7 @@ export const routes: Routes = [
  // Protected route for admin dashboard
  {
   path: 'admin-dashboard',
-  component: AdminDashboardComponent,
+  
   canActivate: [authGuard] // Apply auth guard to protect this route
  }
 ];

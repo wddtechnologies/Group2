@@ -40,7 +40,7 @@ export const routes: Routes = [
   // Protected route for admin dashboard
   {
     path: 'admin-dashboard',
-    canActivate: [authGuard] 
+    redirectTo: 'admin-login',
   },
 
   // --- NAVIGATION DEFAULTS ---

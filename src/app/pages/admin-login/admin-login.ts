@@ -38,13 +38,13 @@ import { AuthService } from '../../core/services/auth.service';
 export class AdminLoginComponent {
 
  // Store username input from User
- username = '';
+ username: string = '';
 
  // Store password input from user
  password = '';
 
  // Store error message to invalid login
- errorMessage = '';
+ errorMessage: string = '';
 
  /** 
   * Constructor

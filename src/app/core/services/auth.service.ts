@@ -14,7 +14,7 @@ export class AuthService {
   private readonly adminUsername = 'admin';
 
   // Hardcoded admin password ( for demo/testing purpose)
-  private readonly adminPassword = 'admin';
+  private readonly adminPassword = 'admin123';
 
   // Key used to store login status in browser's local storage
   private readonly storageKey = 'isAdminLoggedIn';

@@ -1,0 +1,25 @@
+.custom-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px; /* Gives it the pill shape */
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Color Variants */
+.lost {
+  background-color: #fee2e2; 
+  color: #dc2626; 
+}
+
+.found {
+  background-color: #dcfce7; 
+  color: #16a34a; 
+}
+
+.returned {
+  background-color: #f3f4f6; 
+  color: #4b5563; 
+}

@@ -1,0 +1,31 @@
+<div class="card-container">
+  
+  <div class="card-image-wrapper">
+    <img [src]="item.imageUrl || 'https://placehold.co/400x200?text=No+Image'" [alt]="item.title" class="card-image">
+    <div class="badge-wrapper">
+      <app-badge 
+        [label]="item.status === 'Returned' ? 'Returned' : item.type" 
+        [variant]="getBadgeVariant()">
+      </app-badge>
+    </div>
+  </div>
+
+  <div class="card-content">
+    <h3 class="card-title">{{ item.title }}</h3>
+    <p class="card-meta">
+      📍 {{ item.location }} &bull; 📅 {{ item.dateReported | date:'shortDate' }}
+    </p>
+    <p class="card-description">{{ item.description }}</p>
+  </div>
+
+  <div class="card-actions">
+    <button class="btn btn-view">View Details</button>
+    <button 
+      *ngIf="item.status === 'Active'" 
+      class="btn btn-action" 
+      (click)="onToggleStatus()">
+      Mark as Returned
+    </button>
+  </div>
+
+</div>

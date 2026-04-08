@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './add-item.html',
   styleUrl: './add-item.css',
 })
-export class AddItem {
+export class AddItemComponent {
   item = {
     title: '',
     description: '',

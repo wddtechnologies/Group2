@@ -4,6 +4,10 @@
 // This allows the service to be injected into components or other services
 import { Injectable } from '@angular/core';
 
+// Import HttpClient to make API requests to backend
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+
 // Mark this class as a service and make it available globally (root level)
 @Injectable({
   providedIn: 'root'
@@ -11,56 +15,64 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   // Hardcoded admin username ( for demo/testing purpose)
-  private readonly adminUsername = 'admin';
+  private readonly storageKey = 'isAdmin';
 
-  // Hardcoded admin password ( for demo/testing purpose)
-  private readonly adminPassword = 'admin123';
+// Api URL for admin login
+  private readonly loginUrl = 'http://localhost/Group2/api/auth/login.php';
 
-  // Key used to store login status in browser's local storage
-  private readonly storageKey = 'isAdminLoggedIn';
+/**
+ * Constructor
+ * Inject HttpClient to make API calls
+ */
+  constructor(private http: HttpClient) {}
 
-  /** 
-   * login method 
-   * Checks if entered username and password match the admin credentials
-   * @param username - The username entered by the user
-   * @param password - user password entered by the user
-   * @returns boolean - true if login is successful, false otherwise
-   */
-  login(username: string, password: string): boolean {
+/**
+ * Login method
+ * This method sends login request to backend and stores login status in local storage
+ * @param username - Admin username input
+ * @param password - Admin password input
+ * @returns Observable of the HTTP response ( can be subscribed to handle success/error)
+ */
+  login(username: string, password: string): Observable<any> {
+    // Create request body object to send to backend
+    const payload = { 
+     username: username, 
+     password: password
+    };
 
-    // Validate credentials by camparing with stored values
-    const isValid = username === this.adminUsername && password === this.adminPassword;
+    // Send POST request to login API endpoint with the payload
+    return this.http.post<any>(this.loginUrl, payload).pipe(
+      tap((response) => {
 
-    // If credentials are valid,
-    if (isValid) {
+        // Check if backend returned success
+        // This assumes your API returns: { success: true }
+        // If backend response is different, this condition should be updated
+        if (response.success) {
 
-     // Save login status in localStorage ( persist even after page reloads)
-      localStorage.setItem(this.storageKey, 'true');
-
-      // Retun success
-      return true;
-    }
-    // If credentials are incorrect, return false
-    return false;
+          // Save login status in localStorage
+          localStorage.setItem(this.storageKey, 'true');
+        }
+      })
+    );
   }
 
   /**
    * logout method
-   * clears the login status from localStorage
+   * Clears the login status from localStorage
    */
   logout(): void {
 
-   // Remove login flag from local storage
-   localStorage.removeItem(this.storageKey);
+    // Remove login flag from localStorage
+    localStorage.removeItem(this.storageKey);
   }
 
   /**
-   * Check if user is logged in 
-   * @returns boolean - true if user is logged in, false otherwise
+   * Check if user is logged in
+   * @returns boolean - true if logged in, false otherwise
    */
   isLoggedIn(): boolean {
 
-   // Read value from localStorage and compare with 'true'
+   // Read value from localStorage and return true if it is 'true'
     return localStorage.getItem(this.storageKey) === 'true';
   }
 }

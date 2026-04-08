@@ -61,21 +61,38 @@ export class AdminLoginComponent {
    */
   onLogin(): void {
 
-   // Call login method from AuthService and store result
-   const success = this.authService.login(this.username, this.password);
+   // Clear old error message before starting a new login attempt
+    this.errorMessage = '';
 
-   // If login successful
-    if (success) {
+    // Call login method from AuthService
+    // Since API call is asynchronous, we must use subscribe()
+    this.authService.login(this.username, this.password).subscribe({
 
-     // Clear any previous error messages
-      this.errorMessage = '';
+      // next runs when backend returns successful HTTP response
+      next: (response: any) => {
 
-      // Redirect to admin dashboard
-      this.router.navigate(['/admin-dashboard']);
-    }
-    // If login failed, show error message
-    else {
-      this.errorMessage = 'Invalid username or password.';
-    }
+        // This assumes backend sends:
+        // { success: true }
+        // If backend response shape is different, update this condition
+        if (response.success) {
+
+          // Redirect to admin dashboard after successful login
+          this.router.navigate(['/admin-dashboard']);
+        } else {
+
+          // Show error if backend says login failed
+          this.errorMessage = 'Invalid username or password.';
+        }
+      },
+
+      // error runs if HTTP request fails
+      error: (error) => {
+
+        // Log actual error in browser console for debugging
+        console.error('Login API error:', error);
+        // Show user-friendly error message
+        this.errorMessage = 'An error occurred during login. Please try again later.';
+      }
+    });
   }
-}
+} 

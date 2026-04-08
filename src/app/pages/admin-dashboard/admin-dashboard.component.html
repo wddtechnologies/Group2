@@ -1,0 +1,52 @@
+<section class="dashboard">
+  <header class="dashboard__header">
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p>Review and manage lost-and-found reports.</p>
+    </div>
+    <a routerLink="/admin-login" class="dashboard__link">Back to Login</a>
+  </header>
+
+  <section class="dashboard__stats" aria-label="Report statistics">
+    <article class="stat-card">
+      <h2>Total</h2>
+      <p>{{ store.stats().total }}</p>
+    </article>
+    <article class="stat-card">
+      <h2>Pending</h2>
+      <p>{{ store.stats().pending }}</p>
+    </article>
+    <article class="stat-card">
+      <h2>Approved</h2>
+      <p>{{ store.stats().approved }}</p>
+    </article>
+    <article class="stat-card">
+      <h2>Resolved</h2>
+      <p>{{ store.stats().resolved }}</p>
+    </article>
+  </section>
+
+  <section class="dashboard__list" aria-label="Reports list">
+    <h2>Reports</h2>
+
+    <p class="dashboard__empty" *ngIf="!store.loading() && store.items().length === 0">
+      No reports available.
+    </p>
+
+    <ul *ngIf="store.items().length > 0">
+      <li *ngFor="let item of store.items()">
+        <div class="item__content">
+          <p class="item__title">{{ item.title }}</p>
+          <p class="item__meta">
+            {{ item.type }} | {{ item.category }} | {{ item.status }}
+          </p>
+          <p class="item__description">{{ item.description }}</p>
+        </div>
+        <div class="item__actions">
+          <button type="button" (click)="store.toggleStatus(item.id)">Next Status</button>
+          <button type="button" class="danger" (click)="store.deleteItem(item.id)">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </section>
+</section>

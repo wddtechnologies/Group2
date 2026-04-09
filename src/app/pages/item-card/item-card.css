@@ -1,0 +1,70 @@
+:host {
+  display: block;
+}
+
+.border-stroke {
+  border: 1px solid #dadada !important;
+}
+
+.custom-item-card {
+  background: #ffffff;
+  border-radius: 40px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+}
+
+.custom-item-card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+.image-wrapper {
+  width: 240px;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 32px;
+  background-color: #f8fafc;
+}
+
+.type-badge {
+  bottom: 15px;
+  left: 15px;
+}
+
+.description-text {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #64748b;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.action-btn {
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 28px;
+  transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+  opacity: 0.85;
+  color: white;
+}
+
+.btn-blue {
+  background-color: #3d8bff;
+  color: white;
+}
+
+.btn-purple {
+  background-color: #9e6ec4;
+  color: white;
+}

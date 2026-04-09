@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { catchError, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { AuthService } from './auth.service';
-import { ItemStatus, LostFoundItem, NewItemPayload } from '../models/item.model';
+import { ItemStatus, LostFoundItem, NewItemPayload } from '../../models/item.model';
 
 type CategoryResponse = { categories: string[] };
 type ReportsResponse = { reports: LostFoundItem[] };
@@ -59,8 +59,8 @@ export class LostFoundStore {
       .subscribe();
   }
 
-  addItem(payload: NewItemPayload): void {
-    this.http
+  addItem(payload: NewItemPayload): Observable<boolean> {
+    return this.http
       .post('/api/reports/create.php', {
         title: payload.title.trim(),
         description: payload.description.trim(),
@@ -72,9 +72,9 @@ export class LostFoundStore {
       })
       .pipe(
         tap(() => this.loadReports()),
-        catchError(() => of(null))
-      )
-      .subscribe();
+        map(() => true),
+        catchError(() => of(false))
+      );
   }
 
   toggleStatus(itemId: number): void {

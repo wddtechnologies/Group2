@@ -6,7 +6,13 @@ import { Injectable } from '@angular/core';
 
 // Import HttpClient to make API requests to backend
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
+
+type LoginResult = {
+  success: boolean;
+  admin?: { id: number; username: string };
+  message?: string;
+};
 
 // Mark this class as a service and make it available globally (root level)
 @Injectable({
@@ -18,7 +24,7 @@ export class AuthService {
   private readonly storageKey = 'isAdmin';
 
 // Api URL for admin login
-  private readonly loginUrl = 'http://localhost/Group2/api/auth/login.php';
+  private readonly loginUrl = '/api/auth/login.php';
 
 /**
  * Constructor
@@ -33,15 +39,20 @@ export class AuthService {
  * @param password - Admin password input
  * @returns Observable of the HTTP response ( can be subscribed to handle success/error)
  */
-  login(username: string, password: string): Observable<any> {
+  login(username: string, password: string): Observable<LoginResult> {
     // Create request body object to send to backend
     const payload = { 
-     username: username, 
+     identifier: username, 
      password: password
     };
 
     // Send POST request to login API endpoint with the payload
-    return this.http.post<any>(this.loginUrl, payload).pipe(
+    return this.http.post<{ admin?: { id: number; username: string }; message?: string }>(this.loginUrl, payload).pipe(
+      map((response) => ({
+        success: !!response?.admin,
+        admin: response.admin,
+        message: response.message
+      })),
       tap((response) => {
 
         // Check if backend returned success
@@ -51,8 +62,16 @@ export class AuthService {
 
           // Save login status in localStorage
           localStorage.setItem(this.storageKey, 'true');
+        } else {
+          localStorage.removeItem(this.storageKey);
         }
-      })
+      }),
+      catchError((error) =>
+        of({
+          success: false,
+          message: error?.error?.message ?? 'Login failed'
+        })
+      )
     );
   }
 
@@ -74,5 +93,9 @@ export class AuthService {
 
    // Read value from localStorage and return true if it is 'true'
     return localStorage.getItem(this.storageKey) === 'true';
+  }
+
+  isAdmin(): boolean {
+    return this.isLoggedIn();
   }
 }

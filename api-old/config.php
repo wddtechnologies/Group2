@@ -5,6 +5,5 @@ return [
   'port' => 3306,
   'database' => 'group2',
   'username' => 'root',
-  'password' => '',
-  'session_name' => 'lostfound_admin_session'
+  'password' => ''
 ];

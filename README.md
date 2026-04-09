@@ -1,64 +1,87 @@
-<<<<<<< HEAD
-# LostAndFound
+# Group2 Lost & Found
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.5.
+Angular frontend with a PHP API backend for reports and admin authentication.
 
-## Development server
+## Tech Stack
 
-To start a local development server, run:
+- Angular 21
+- PHP (built-in dev server)
+- MySQL
+- Bootstrap 5 + Bootstrap Icons
 
-```bash
-ng serve
-```
+## Project Structure
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- `src/` Angular app
+- `api/` PHP API (`auth`, `reports`, `categories`, `uploads`)
+- `public/` static public assets used by Angular
 
-## Code scaffolding
+## Local Development
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Run both servers in separate terminals.
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. Start PHP API server (from project root):
 
 ```bash
-ng generate --help
+cd (project directory)
+php -S 127.0.0.1:8000 -t .
 ```
 
-## Building
-
-To build the project run:
+2. Start Angular dev server (from project root):
 
 ```bash
-ng build
+cd (project directory)
+npm install
+npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+3. Open:
 
-## Running unit tests
+- Frontend: `http://localhost:4200` (or the port shown by Angular)
+- API health check: `http://127.0.0.1:8000/api/health.php`
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## API Proxy
+
+Angular proxies `/api/*` requests to PHP:
+
+- `proxy.conf.json` target should be `http://127.0.0.1:8000`
+
+If frontend calls fail with `ECONNREFUSED` or `404` on `/api/...`, verify PHP is running on port `8000`.
+
+## Database
+
+API DB config is in:
+
+- `api/config.php`
+
+Ensure host, port, database, username, and password match your local MySQL setup.
+
+## Image Upload + Display
+
+- Uploaded files are saved to `api/uploads/`
+- `reports.image_path` stores values like `api/uploads/<filename>`
+- Public page displays images from `/api/uploads/<filename>`
+- Fallback image is served from `public/images/placeholder.jpg`
+
+## Routes
+
+- `/` public listing
+- `/add-item` add item form
+- `/admin-login` admin login
+- `/admin-dashboard` admin dashboard
+
+## Build
 
 ```bash
-ng test
+npm run build
 ```
 
-## Running end-to-end tests
+## Troubleshooting
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-=======
-# Group2
-This is the Angular week 6 Project 
->>>>>>> b523d9162508a3730ab953fd3e2b8dd91b30327e
+- Port already in use:
+  - `lsof -nP -iTCP:8000 -sTCP:LISTEN`
+  - `lsof -nP -iTCP:4200 -sTCP:LISTEN`
+- API returns 500:
+  - check `api/config.php` credentials and MySQL availability
+- Frontend shows no data:
+  - confirm report status is `Approved`
+  - confirm PHP server is running and proxy target is correct

@@ -1,0 +1,113 @@
+body{
+
+  background: #cfcfcf;
+}
+
+/* 1. Global & Container */
+:host {
+    display: block;
+    background-color: #fcfcfc;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif; /* Recommended for this design style */
+}
+
+/* 2. Stroke & Utility */
+.border-stroke {
+    border: 1px solid #dadada !important;
+}
+
+/* 3. The Custom Card */
+.custom-item-card {
+    background: #ffffff;
+    border-radius: 40px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+}
+
+.custom-item-card:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    transform: translateY(-2px);
+}
+
+/* 4. Image Section & Placeholder */
+.image-wrapper {
+    width: 240px;
+    height: 200px;
+    flex-shrink: 0;
+}
+
+.item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 32px; /* Matches inner curve of the card */
+    background-color: #f8fafc; /* Color for the placeholder background */
+}
+
+/* 5. Tags / Badges */
+.type-badge {
+    bottom: 15px;
+    left: 15px;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.badge-found {
+    background-color: #e0efff;
+    color: #3d8bff;
+}
+
+.badge-lost {
+    background-color: #f3e8ff;
+    color: #9e6ec4;
+}
+
+/* 6. Typography & Content */
+.description-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #64748b;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 7. Action Buttons */
+.action-btn {
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 28px;
+    transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+    opacity: 0.85;
+    color: white;
+}
+
+.btn-blue {
+    background-color: #3d8bff;
+    color: white;
+}
+
+.btn-purple {
+    background-color: #9e6ec4;
+    color: white;
+}
+
+/* 8. Search & Filter Bar */
+.search-container .input-group {
+    background-color: #f8fafc !important;
+    width: 26rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+}
+
+.btn-light.border-stroke {
+    background-color: #ffffff;
+    color: #1e293b;
+    font-weight: 500;
+}

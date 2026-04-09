@@ -9,6 +9,11 @@ Angular frontend with a PHP API backend for reports and admin authentication.
 - MySQL
 - Bootstrap 5 + Bootstrap Icons
 
+## To be completed 
+
+- Add Modal Structure
+- Revamp the Add File
+
 ## Project Structure
 
 - `src/` Angular app

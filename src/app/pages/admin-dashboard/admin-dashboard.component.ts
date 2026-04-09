@@ -10,6 +10,7 @@ import { LostFoundStore } from '../../core/services/lost-found.store';
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
+
 export class AdminDashboardComponent {
   readonly store = inject(LostFoundStore);
 }

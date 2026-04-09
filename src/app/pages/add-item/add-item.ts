@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { LostFoundStore } from '../../core/services/lost-found.store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-item',
@@ -11,7 +12,10 @@ import { LostFoundStore } from '../../core/services/lost-found.store';
   styleUrl: './add-item.css',
 })
 export class AddItemComponent {
-  constructor(private readonly store: LostFoundStore) {}
+  constructor(
+    private readonly store: LostFoundStore,
+    private readonly router: Router
+  ) {}
 
   item = {
     title: '',
@@ -50,6 +54,7 @@ export class AddItemComponent {
         if (ok) {
           this.successMessage = 'Report submitted successfully.';
           this.resetForm();
+          this.router.navigateByUrl('/');
           return;
         }
         this.errorMessage = 'Could not submit report. Please check API reports/create.php.';
